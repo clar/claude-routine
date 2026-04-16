@@ -1,0 +1,406 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Daily News Hub</title>
+<script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+<style>
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+body {
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+  background: #f8f9fa;
+  color: #333;
+  line-height: 1.6;
+}
+
+/* 顶部日期栏 */
+.date-bar {
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  background: #fff;
+  border-bottom: 1px solid #e1e4e8;
+  padding: 12px 20px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 16px;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.06);
+}
+
+.date-bar button {
+  background: none;
+  border: 1px solid #d1d5da;
+  border-radius: 6px;
+  padding: 6px 14px;
+  cursor: pointer;
+  font-size: 16px;
+  color: #333;
+  transition: background 0.15s;
+}
+
+.date-bar button:hover { background: #f0f0f0; }
+.date-bar button:disabled { opacity: 0.3; cursor: not-allowed; }
+
+.date-display {
+  font-size: 20px;
+  font-weight: 600;
+  min-width: 160px;
+  text-align: center;
+}
+
+.date-bar input[type="date"] {
+  border: 1px solid #d1d5da;
+  border-radius: 6px;
+  padding: 5px 10px;
+  font-size: 14px;
+  cursor: pointer;
+  color: #555;
+}
+
+/* 右侧悬浮导航 */
+.side-nav {
+  position: fixed;
+  right: 20px;
+  top: 50%;
+  transform: translateY(-50%);
+  z-index: 90;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.side-nav a {
+  display: block;
+  padding: 10px 14px;
+  background: #fff;
+  border: 1px solid #e1e4e8;
+  border-radius: 8px;
+  text-decoration: none;
+  color: #555;
+  font-size: 13px;
+  font-weight: 500;
+  text-align: center;
+  transition: all 0.15s;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.06);
+}
+
+.side-nav a:hover { background: #f0f0f0; color: #333; }
+.side-nav a.active { background: #0969da; color: #fff; border-color: #0969da; }
+
+/* 主内容区 */
+.container {
+  max-width: 900px;
+  margin: 0 auto;
+  padding: 24px 20px 60px;
+}
+
+.section {
+  background: #fff;
+  border: 1px solid #e1e4e8;
+  border-radius: 10px;
+  margin-bottom: 24px;
+  overflow: hidden;
+}
+
+.section-header {
+  padding: 16px 24px;
+  font-size: 18px;
+  font-weight: 700;
+  border-bottom: 1px solid #e1e4e8;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.section-header .icon { font-size: 22px; }
+
+.section-body {
+  padding: 24px;
+}
+
+.section-body .empty {
+  color: #999;
+  font-style: italic;
+  text-align: center;
+  padding: 40px 0;
+}
+
+.loading {
+  text-align: center;
+  padding: 40px 0;
+  color: #999;
+}
+
+/* Markdown 渲染样式 */
+.section-body h1 { font-size: 1.5em; margin: 0.8em 0 0.4em; border-bottom: 1px solid #eee; padding-bottom: 0.3em; }
+.section-body h2 { font-size: 1.3em; margin: 1em 0 0.4em; }
+.section-body h3 { font-size: 1.1em; margin: 0.8em 0 0.3em; }
+.section-body p { margin: 0.6em 0; }
+.section-body a { color: #0969da; text-decoration: none; }
+.section-body a:hover { text-decoration: underline; }
+.section-body ul, .section-body ol { padding-left: 1.5em; margin: 0.5em 0; }
+.section-body li { margin: 0.3em 0; }
+.section-body blockquote {
+  border-left: 3px solid #d1d5da;
+  padding: 4px 16px;
+  margin: 0.6em 0;
+  color: #666;
+  background: #f8f9fa;
+  border-radius: 0 4px 4px 0;
+}
+.section-body hr { border: none; border-top: 1px solid #e1e4e8; margin: 1.2em 0; }
+.section-body code {
+  background: #f0f2f5;
+  padding: 2px 6px;
+  border-radius: 3px;
+  font-size: 0.9em;
+}
+.section-body pre {
+  background: #f6f8fa;
+  padding: 12px 16px;
+  border-radius: 6px;
+  overflow-x: auto;
+  margin: 0.6em 0;
+}
+.section-body pre code { background: none; padding: 0; }
+.section-body strong { font-weight: 600; }
+
+/* 表格样式 */
+.section-body table {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 0.8em 0;
+  font-size: 0.92em;
+}
+.section-body th, .section-body td {
+  border: 1px solid #e1e4e8;
+  padding: 8px 12px;
+  text-align: left;
+}
+.section-body th {
+  background: #f6f8fa;
+  font-weight: 600;
+}
+.section-body tr:nth-child(even) { background: #fafbfc; }
+.section-body tr:hover { background: #f0f4f8; }
+
+/* 响应式 */
+@media (max-width: 768px) {
+  .side-nav { display: none; }
+  .container { padding: 16px 12px 40px; }
+  .section-body { padding: 16px; }
+  .date-display { font-size: 16px; min-width: auto; }
+  .section-body table { font-size: 0.82em; }
+  .section-body th, .section-body td { padding: 6px 8px; }
+}
+
+/* 底部移动端导航（替代右侧导航） */
+.bottom-nav {
+  display: none;
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background: #fff;
+  border-top: 1px solid #e1e4e8;
+  z-index: 90;
+  justify-content: space-around;
+  padding: 8px 0;
+}
+
+.bottom-nav a {
+  text-decoration: none;
+  color: #555;
+  font-size: 12px;
+  font-weight: 500;
+  text-align: center;
+  padding: 4px 8px;
+}
+.bottom-nav a.active { color: #0969da; }
+
+@media (max-width: 768px) {
+  .bottom-nav { display: flex; }
+  .container { padding-bottom: 80px; }
+}
+</style>
+</head>
+<body>
+
+<div class="date-bar">
+  <button id="prev-btn" title="前一天">←</button>
+  <span class="date-display" id="date-display">加载中...</span>
+  <button id="next-btn" title="后一天">→</button>
+  <input type="date" id="date-picker" title="选择日期">
+</div>
+
+<nav class="side-nav" id="side-nav">
+  <a href="#section-github" data-section="github">GitHub</a>
+  <a href="#section-ai" data-section="ai">AI</a>
+  <a href="#section-crypto" data-section="crypto">Crypto</a>
+</nav>
+
+<main class="container">
+  <div class="section" id="section-github">
+    <div class="section-header"><span class="icon">📊</span> GitHub Trending</div>
+    <div class="section-body" id="content-github"><div class="loading">加载中...</div></div>
+  </div>
+  <div class="section" id="section-ai">
+    <div class="section-header"><span class="icon">🤖</span> AI 日报</div>
+    <div class="section-body" id="content-ai"><div class="loading">加载中...</div></div>
+  </div>
+  <div class="section" id="section-crypto">
+    <div class="section-header"><span class="icon">💰</span> Crypto 日报</div>
+    <div class="section-body" id="content-crypto"><div class="loading">加载中...</div></div>
+  </div>
+</main>
+
+<nav class="bottom-nav">
+  <a href="#section-github" data-section="github">📊 GitHub</a>
+  <a href="#section-ai" data-section="ai">🤖 AI</a>
+  <a href="#section-crypto" data-section="crypto">💰 Crypto</a>
+</nav>
+
+<script>
+(function() {
+  let datesData = null;
+  let currentDate = null;
+
+  const SECTIONS = [
+    { key: 'github', path: d => `github_daily/${d}/trending.md` },
+    { key: 'ai',     path: d => `ai_daily/${d}/report.md` },
+    { key: 'crypto', path: d => `crypto_daily/${d}/report.md` },
+  ];
+
+  const dateDisplay = document.getElementById('date-display');
+  const prevBtn = document.getElementById('prev-btn');
+  const nextBtn = document.getElementById('next-btn');
+  const datePicker = document.getElementById('date-picker');
+
+  async function init() {
+    try {
+      const resp = await fetch('dates.json');
+      datesData = await resp.json();
+    } catch {
+      dateDisplay.textContent = '无法加载数据';
+      return;
+    }
+
+    if (!datesData.dates || datesData.dates.length === 0) {
+      dateDisplay.textContent = '暂无数据';
+      return;
+    }
+
+    // 从 URL hash 读取日期，或使用最新日期
+    const hashDate = getHashDate();
+    const targetDate = hashDate && datesData.dates.includes(hashDate) ? hashDate : datesData.dates[0];
+
+    datePicker.min = datesData.dates[datesData.dates.length - 1];
+    datePicker.max = datesData.dates[0];
+
+    loadDate(targetDate);
+
+    prevBtn.addEventListener('click', () => navigateDate(-1));
+    nextBtn.addEventListener('click', () => navigateDate(1));
+    datePicker.addEventListener('change', () => {
+      const val = datePicker.value;
+      if (val && datesData.dates.includes(val)) {
+        loadDate(val);
+      } else if (val) {
+        // 找到最近的可用日期
+        const closest = datesData.dates.reduce((prev, d) =>
+          Math.abs(new Date(d) - new Date(val)) < Math.abs(new Date(prev) - new Date(val)) ? d : prev
+        );
+        loadDate(closest);
+      }
+    });
+
+    window.addEventListener('hashchange', () => {
+      const d = getHashDate();
+      if (d && d !== currentDate && datesData.dates.includes(d)) loadDate(d);
+    });
+
+    initScrollSpy();
+  }
+
+  function getHashDate() {
+    const match = location.hash.match(/date=(\d{4}-\d{2}-\d{2})/);
+    return match ? match[1] : null;
+  }
+
+  function loadDate(date) {
+    currentDate = date;
+    dateDisplay.textContent = date;
+    datePicker.value = date;
+    location.hash = `date=${date}`;
+
+    const idx = datesData.dates.indexOf(date);
+    prevBtn.disabled = idx >= datesData.dates.length - 1;
+    nextBtn.disabled = idx <= 0;
+
+    const available = datesData.sections[date] || [];
+    SECTIONS.forEach(s => {
+      const el = document.getElementById(`content-${s.key}`);
+      if (available.includes(s.key)) {
+        el.innerHTML = '<div class="loading">加载中...</div>';
+        fetchMarkdown(s.path(date), el);
+      } else {
+        el.innerHTML = '<div class="empty">该日期暂无报告</div>';
+      }
+    });
+  }
+
+  async function fetchMarkdown(path, el) {
+    try {
+      const resp = await fetch(path);
+      if (!resp.ok) throw new Error(resp.status);
+      const md = await resp.text();
+      el.innerHTML = marked.parse(md);
+    } catch {
+      el.innerHTML = '<div class="empty">该日期暂无报告</div>';
+    }
+  }
+
+  function navigateDate(direction) {
+    const idx = datesData.dates.indexOf(currentDate);
+    const newIdx = idx - direction; // dates 是降序，所以 -1 = 前一天(index+1)
+    if (newIdx >= 0 && newIdx < datesData.dates.length) {
+      loadDate(datesData.dates[newIdx]);
+    }
+  }
+
+  function initScrollSpy() {
+    const sections = document.querySelectorAll('.section');
+    const navLinks = document.querySelectorAll('.side-nav a, .bottom-nav a');
+
+    const observer = new IntersectionObserver(entries => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          const id = entry.target.id;
+          const key = id.replace('section-', '');
+          navLinks.forEach(link => {
+            link.classList.toggle('active', link.dataset.section === key);
+          });
+        }
+      });
+    }, { rootMargin: '-20% 0px -60% 0px' });
+
+    sections.forEach(s => observer.observe(s));
+
+    // 平滑滚动
+    navLinks.forEach(link => {
+      link.addEventListener('click', e => {
+        e.preventDefault();
+        const target = document.getElementById(link.getAttribute('href').slice(1));
+        if (target) target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      });
+    });
+  }
+
+  init();
+})();
+</script>
+</body>
+</html>

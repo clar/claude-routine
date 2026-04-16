@@ -1,0 +1,67 @@
+name: Deploy to GitHub Pages
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+concurrency:
+  group: pages
+  cancel-in-progress: true
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Generate dates.json
+        run: |
+          python3 -c "
+          import os, json
+
+          sections_map = {
+              'github': 'github_daily',
+              'ai': 'ai_daily',
+              'crypto': 'crypto_daily',
+          }
+
+          all_dates = set()
+          date_sections = {}
+
+          for key, dir_name in sections_map.items():
+              if not os.path.isdir(dir_name):
+                  continue
+              for d in os.listdir(dir_name):
+                  if not os.path.isdir(os.path.join(dir_name, d)):
+                      continue
+                  all_dates.add(d)
+                  date_sections.setdefault(d, []).append(key)
+
+          dates_sorted = sorted(all_dates, reverse=True)
+
+          data = {
+              'dates': dates_sorted,
+              'sections': {d: sorted(date_sections.get(d, [])) for d in dates_sorted},
+          }
+
+          with open('dates.json', 'w') as f:
+              json.dump(data, f, indent=2)
+
+          print(f'Generated dates.json with {len(dates_sorted)} dates')
+          "
+
+      - uses: actions/configure-pages@v5
+      - uses: actions/upload-pages-artifact@v3
+        with:
+          path: .
+      - id: deployment
+        uses: actions/deploy-pages@v4
