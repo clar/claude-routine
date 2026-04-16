@@ -568,13 +568,14 @@ body {
   }
 
   function findMostRecentSection(date, available) {
-    // For the latest date, pick the section that was most recently updated
-    // Simple heuristic: iran updates every 8h so likely most recent, otherwise use order
-    const priority = ['iran', 'ai', 'crypto', 'github'];
-    for (const key of priority) {
-      if (available.includes(key)) return key;
-    }
-    return available[0];
+    const commits = datesData.latest_commit || {};
+    // Sort available sections by their latest commit time, descending
+    const sorted = available.slice().sort((a, b) => {
+      const ta = commits[a] || '';
+      const tb = commits[b] || '';
+      return tb.localeCompare(ta);
+    });
+    return sorted[0] || available[0];
   }
 
   function loadIranContent(date, el) {

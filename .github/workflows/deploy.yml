@@ -28,7 +28,7 @@ jobs:
       - name: Generate dates.json
         run: |
           python3 -c "
-          import os, json, re
+          import os, json, re, subprocess
 
           # Standard date-directory based sections
           sections_map = {
@@ -39,6 +39,17 @@ jobs:
 
           all_dates = set()
           date_sections = {}
+          latest_commit = {}  # section_key -> latest git commit timestamp
+
+          def get_last_commit_time(path):
+              try:
+                  result = subprocess.run(
+                      ['git', 'log', '-1', '--format=%aI', '--', path],
+                      capture_output=True, text=True, timeout=10
+                  )
+                  return result.stdout.strip() or None
+              except:
+                  return None
 
           for key, dir_name in sections_map.items():
               if not os.path.isdir(dir_name):
@@ -48,6 +59,9 @@ jobs:
                       continue
                   all_dates.add(d)
                   date_sections.setdefault(d, []).append(key)
+              t = get_last_commit_time(dir_name)
+              if t:
+                  latest_commit[key] = t
 
           # Iran: flat date-named markdown files in iran_daily/
           iran_dir = 'iran_daily'
@@ -62,6 +76,9 @@ jobs:
                       all_dates.add(d)
                       date_sections.setdefault(d, []).append('iran')
                       iran_files.setdefault(d, []).append(f)
+              t = get_last_commit_time(iran_dir)
+              if t:
+                  latest_commit['iran'] = t
 
           # Deduplicate section lists
           for d in date_sections:
@@ -77,6 +94,7 @@ jobs:
               'dates': dates_sorted,
               'sections': {d: date_sections.get(d, []) for d in dates_sorted},
               'iran_files': {d: iran_files[d] for d in dates_sorted if d in iran_files},
+              'latest_commit': latest_commit,
           }
 
           with open('dates.json', 'w') as f:
