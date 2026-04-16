@@ -30,15 +30,15 @@
 
 ## Crypto最新日报
 
-**[2026-04-16 · SEC CLARITY Act 监管大会召开 · BTC 重返 $75K · Morgan Stanley 首发银行系比特币 ETF](./crypto_daily/2026-04-16/report.md)**
+**[2026-04-16 · SEC CLARITY Act 圆桌会议召开 · BTC $74,576 MFI创新高 · Morgan Stanley首只银行系ETF · Kraken内部人员泄露](./crypto_daily/2026-04-16/report.md)**
 
-> 今日焦点：**SEC CLARITY Act 圆桌会议今日召开（通过概率72%）· Morgan Stanley MSBT 管理费全市场最低 · Rakuten 4400万用户集成 XRP · Kraken 遭勒索事件**
+> 今日焦点：**SEC CLARITY Act 通过概率升至72% · BTC MFI-14=79 创恢复周期新高 · Morgan Stanley MSBT 管理费全市场最低0.14% · Bio Protocol暴涨91% · Kraken内部人员泄露约2000账户**
 >
 > - SEC 主持 CLARITY Act 圆桌会议，讨论数字资产商品/证券分类框架，参议院 markup 预计4月底；Polymarket 赔率升至 72%
-> - BTC 日涨 5.9% 重返 $75K，ETH 涨 8.6% 至 $2,377，中东局势缓和 + 日央行鸽派转向共同驱动风险偏好
-> - 摩根士丹利 MSBT 上市，美国首家银行系 Spot BTC ETF，管理费 0.14% 全市场最低，覆盖 $9.3 万亿客户资产
-> - Rakuten 为 4400 万用户集成 XRP 支付，XRP 涨 4.2% 至 $1.38；PARITY Act 拟推稳定币小额消费免税
-> - Kraken 遭犯罪团伙勒索，否认实质数据泄露，律所就延迟披露提起诉讼
+> - BTC 现价 $74,576（MFI-14=79 创恢复新高），ETH $2,352.92；全市场总市值 $2.6 万亿，恐惧贪婪指数 23（极度恐惧）
+> - Morgan Stanley MSBT 成美国首只银行系 Spot BTC ETF（4月8日上市），管理费 0.14% 全市场最低；首日成交 $3,400 万
+> - Rakuten 为 4,400 万用户集成 XRP 支付；PARITY Act 拟推稳定币小额消费免税；Bio Protocol 单日暴涨 91%
+> - Kraken 遭内部人员招募泄露事件：约 2,000 账户基础数据外泄，犯罪团伙以录像勒索，Kraken 拒绝支付并联合执法追查
 
 ---
 
@@ -46,5 +46,5 @@
 
 | 日期 | 今日焦点 | 链接 |
 |------|---------|------|
-| 2026-04-16 | SEC CLARITY Act 召开 · BTC $75K · Morgan Stanley 首发银行系 ETF · Kraken 勒索事件 | [Crypto日报](./crypto_daily/2026-04-16/report.md) · [AI日报](./ai_daily/2026-04-16/report.md) · [GitHub热榜](./github_daily/2026-04-16/trending.md) |
+| 2026-04-16 | SEC CLARITY Act 圆桌会议 · BTC $74,576 MFI新高 · Morgan Stanley MSBT · Kraken内部泄露 | [Crypto日报](./crypto_daily/2026-04-16/report.md) · [AI日报](./ai_daily/2026-04-16/report.md) · [GitHub热榜](./github_daily/2026-04-16/trending.md) |
 | 2026-04-15 | AI Agent 爆发期 · Claude 生态霸榜 · 金融 AI 双层突破 | [查看报告](./github_daily/2026-04-15/trending.md) |
