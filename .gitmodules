@@ -1,0 +1,4 @@
+[submodule "iran_daily"]
+	path = iran_daily
+	url = https://github.com/RickyShiJs/daily_iran_situation.git
+	branch = claude/clever-davinci-3kQ43

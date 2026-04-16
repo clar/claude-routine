@@ -22,12 +22,15 @@ jobs:
       url: ${{ steps.deployment.outputs.page_url }}
     steps:
       - uses: actions/checkout@v4
+        with:
+          submodules: true
 
       - name: Generate dates.json
         run: |
           python3 -c "
-          import os, json
+          import os, json, re
 
+          # Standard date-directory based sections
           sections_map = {
               'github': 'github_daily',
               'ai': 'ai_daily',
@@ -46,11 +49,34 @@ jobs:
                   all_dates.add(d)
                   date_sections.setdefault(d, []).append(key)
 
+          # Iran: flat date-named markdown files in iran_daily/
+          iran_dir = 'iran_daily'
+          iran_files = {}  # date -> [filenames]
+          if os.path.isdir(iran_dir):
+              for f in os.listdir(iran_dir):
+                  if not f.endswith('.md'):
+                      continue
+                  m = re.match(r'(\d{4}-\d{2}-\d{2})', f)
+                  if m:
+                      d = m.group(1)
+                      all_dates.add(d)
+                      date_sections.setdefault(d, []).append('iran')
+                      iran_files.setdefault(d, []).append(f)
+
+          # Deduplicate section lists
+          for d in date_sections:
+              date_sections[d] = sorted(set(date_sections[d]))
+
+          # Sort iran files per date (latest timestamp first)
+          for d in iran_files:
+              iran_files[d] = sorted(iran_files[d], reverse=True)
+
           dates_sorted = sorted(all_dates, reverse=True)
 
           data = {
               'dates': dates_sorted,
-              'sections': {d: sorted(date_sections.get(d, [])) for d in dates_sorted},
+              'sections': {d: date_sections.get(d, []) for d in dates_sorted},
+              'iran_files': {d: iran_files[d] for d in dates_sorted if d in iran_files},
           }
 
           with open('dates.json', 'w') as f:

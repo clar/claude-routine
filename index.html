@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>10 News</title>
+<title>DAILY 10 NEWS</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=Source+Han+Sans+SC:wght@400;500;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
@@ -18,6 +18,7 @@
   --accent-github: #c9463d;
   --accent-ai: #2d6a9f;
   --accent-crypto: #b8860b;
+  --accent-iran: #2e7d5f;
   --rule: #d4cfc8;
   --rule-light: #e8e4de;
   --font-display: 'Playfair Display', 'Georgia', serif;
@@ -26,7 +27,6 @@
 }
 
 * { margin: 0; padding: 0; box-sizing: border-box; }
-
 html { scroll-behavior: smooth; }
 
 body {
@@ -47,7 +47,7 @@ body {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: 0 clamp(20px, 4vw, 60px);
+  padding: 0 clamp(20px, 3vw, 48px);
   height: 56px;
 }
 
@@ -55,7 +55,7 @@ body {
   font-family: var(--font-display);
   font-weight: 900;
   font-size: 22px;
-  letter-spacing: -0.5px;
+  letter-spacing: 1px;
   color: var(--ink);
   white-space: nowrap;
 }
@@ -106,7 +106,7 @@ body {
   height: 32px;
 }
 
-/* ─── 板块导航条 ─── */
+/* ─── Tab 导航 ─── */
 .section-tabs {
   border-bottom: 1px solid var(--rule);
   background: var(--paper);
@@ -132,6 +132,7 @@ body {
   transition: all 0.2s;
   letter-spacing: 0.5px;
   text-transform: uppercase;
+  cursor: pointer;
 }
 
 .section-tabs a:hover { color: var(--ink); }
@@ -139,6 +140,7 @@ body {
 .section-tabs a.active[data-section="github"] { color: var(--accent-github); border-bottom-color: var(--accent-github); }
 .section-tabs a.active[data-section="ai"] { color: var(--accent-ai); border-bottom-color: var(--accent-ai); }
 .section-tabs a.active[data-section="crypto"] { color: var(--accent-crypto); border-bottom-color: var(--accent-crypto); }
+.section-tabs a.active[data-section="iran"] { color: var(--accent-iran); border-bottom-color: var(--accent-iran); }
 
 .tab-dot {
   width: 8px;
@@ -149,27 +151,33 @@ body {
 [data-section="github"] .tab-dot { background: var(--accent-github); }
 [data-section="ai"] .tab-dot { background: var(--accent-ai); }
 [data-section="crypto"] .tab-dot { background: var(--accent-crypto); }
+[data-section="iran"] .tab-dot { background: var(--accent-iran); }
+
+/* 无数据的 tab 样式 */
+.section-tabs a.unavailable {
+  opacity: 0.35;
+  cursor: default;
+}
 
 /* ─── 主内容 ─── */
 .container {
-  max-width: 1100px;
+  max-width: 1320px;
   margin: 0 auto;
-  padding: 0 clamp(16px, 4vw, 60px) 80px;
+  padding: 0 clamp(16px, 3vw, 48px) 80px;
 }
 
 .section {
-  padding-top: 48px;
-  margin-bottom: 24px;
-  animation: fadeUp 0.4s ease-out both;
+  display: none;
+  padding-top: 40px;
+  animation: fadeIn 0.3s ease-out both;
 }
 
-@keyframes fadeUp {
-  from { opacity: 0; transform: translateY(12px); }
+.section.active { display: block; }
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(8px); }
   to { opacity: 1; transform: translateY(0); }
 }
-
-.section:nth-child(2) { animation-delay: 0.08s; }
-.section:nth-child(3) { animation-delay: 0.16s; }
 
 .section-label {
   display: inline-flex;
@@ -187,6 +195,7 @@ body {
 #section-github .color-bar { background: var(--accent-github); }
 #section-ai .color-bar { background: var(--accent-ai); }
 #section-crypto .color-bar { background: var(--accent-crypto); }
+#section-iran .color-bar { background: var(--accent-iran); }
 
 .section-label span {
   font-family: var(--font-display);
@@ -346,14 +355,13 @@ body {
 }
 
 .section-body tr:hover td { background: rgba(0,0,0,0.015); }
-
 .section-body td a { font-weight: 500; }
 
-/* ─── 页脚分隔线 ─── */
+/* ─── 页脚 ─── */
 .footer-rule {
-  max-width: 1100px;
+  max-width: 1320px;
   margin: 0 auto;
-  padding: 0 clamp(16px, 4vw, 60px);
+  padding: 0 clamp(16px, 3vw, 48px);
 }
 
 .footer-rule hr {
@@ -363,9 +371,9 @@ body {
 }
 
 .footer-info {
-  max-width: 1100px;
+  max-width: 1320px;
   margin: 0 auto 40px;
-  padding: 0 clamp(16px, 4vw, 60px);
+  padding: 0 clamp(16px, 3vw, 48px);
   font-size: 12px;
   color: var(--ink-muted);
   font-family: var(--font-mono);
@@ -373,18 +381,18 @@ body {
 
 /* ─── 响应式 ─── */
 @media (max-width: 768px) {
-  .masthead { font-size: 17px; }
+  .masthead { font-size: 16px; }
   .section-tabs a { padding: 12px 16px; font-size: 12px; }
   .section-body { padding: 16px; }
   .section-label span { font-size: 20px; }
   .section-body table { font-size: 0.82em; }
   .section-body th, .section-body td { padding: 8px 10px; }
-  .section { padding-top: 32px; }
+  .section { padding-top: 24px; }
   .date-label { display: none; }
 }
 
 @media (max-width: 480px) {
-  .section-tabs a { padding: 10px 12px; font-size: 11px; gap: 5px; }
+  .section-tabs a { padding: 10px 10px; font-size: 11px; gap: 5px; }
   .tab-dot { width: 6px; height: 6px; }
 }
 </style>
@@ -392,7 +400,7 @@ body {
 <body>
 
 <header class="topbar">
-  <div class="masthead">10 News</div>
+  <div class="masthead">DAILY 10 NEWS</div>
   <div class="date-controls">
     <button id="prev-btn" title="前一天">&#8592;</button>
     <span class="date-label" id="date-display"></span>
@@ -402,9 +410,10 @@ body {
 </header>
 
 <nav class="section-tabs" id="section-tabs">
-  <a href="#section-github" data-section="github"><span class="tab-dot"></span>GitHub</a>
-  <a href="#section-ai" data-section="ai"><span class="tab-dot"></span>AI</a>
-  <a href="#section-crypto" data-section="crypto"><span class="tab-dot"></span>Crypto</a>
+  <a data-section="github"><span class="tab-dot"></span>GitHub</a>
+  <a data-section="ai"><span class="tab-dot"></span>AI</a>
+  <a data-section="crypto"><span class="tab-dot"></span>Crypto</a>
+  <a data-section="iran"><span class="tab-dot"></span>Iran</a>
 </nav>
 
 <main class="container">
@@ -420,6 +429,10 @@ body {
     <div class="section-label"><div class="color-bar"></div><span>Crypto Daily</span></div>
     <div class="section-body" id="content-crypto"><div class="loading">Loading</div></div>
   </div>
+  <div class="section" id="section-iran">
+    <div class="section-label"><div class="color-bar"></div><span>Iran Situation</span></div>
+    <div class="section-body" id="content-iran"><div class="loading">Loading</div></div>
+  </div>
 </main>
 
 <div class="footer-rule"><hr></div>
@@ -429,17 +442,20 @@ body {
 (function() {
   let datesData = null;
   let currentDate = null;
+  let activeSection = null;
 
   const SECTIONS = [
     { key: 'github', path: d => `github_daily/${d}/trending.md` },
     { key: 'ai',     path: d => `ai_daily/${d}/report.md` },
     { key: 'crypto', path: d => `crypto_daily/${d}/report.md` },
+    { key: 'iran',   path: null }, // dynamic, uses iran_files from dates.json
   ];
 
   const dateDisplay = document.getElementById('date-display');
   const prevBtn = document.getElementById('prev-btn');
   const nextBtn = document.getElementById('next-btn');
   const datePicker = document.getElementById('date-picker');
+  const tabLinks = document.querySelectorAll('.section-tabs a');
 
   async function init() {
     try {
@@ -456,12 +472,19 @@ body {
     }
 
     const hashDate = getHashDate();
+    const hashSection = getHashSection();
     const targetDate = hashDate && datesData.dates.includes(hashDate) ? hashDate : datesData.dates[0];
 
     datePicker.min = datesData.dates[datesData.dates.length - 1];
     datePicker.max = datesData.dates[0];
 
-    loadDate(targetDate);
+    // Tab click handlers
+    tabLinks.forEach(link => {
+      link.addEventListener('click', () => {
+        if (link.classList.contains('unavailable')) return;
+        switchSection(link.dataset.section);
+      });
+    });
 
     prevBtn.addEventListener('click', () => navigateDate(-1));
     nextBtn.addEventListener('click', () => navigateDate(1));
@@ -479,10 +502,12 @@ body {
 
     window.addEventListener('hashchange', () => {
       const d = getHashDate();
-      if (d && d !== currentDate && datesData.dates.includes(d)) loadDate(d);
+      const s = getHashSection();
+      if (d && d !== currentDate && datesData.dates.includes(d)) loadDate(d, s);
+      else if (s && s !== activeSection) switchSection(s);
     });
 
-    initScrollSpy();
+    loadDate(targetDate, hashSection);
   }
 
   function getHashDate() {
@@ -490,26 +515,93 @@ body {
     return match ? match[1] : null;
   }
 
-  function loadDate(date) {
+  function getHashSection() {
+    const match = location.hash.match(/section=(\w+)/);
+    return match ? match[1] : null;
+  }
+
+  function updateHash() {
+    location.hash = `date=${currentDate}&section=${activeSection}`;
+  }
+
+  function loadDate(date, preferredSection) {
     currentDate = date;
     dateDisplay.textContent = date;
     datePicker.value = date;
-    location.hash = `date=${date}`;
 
     const idx = datesData.dates.indexOf(date);
     prevBtn.disabled = idx >= datesData.dates.length - 1;
     nextBtn.disabled = idx <= 0;
 
     const available = datesData.sections[date] || [];
+
+    // Update tab availability
+    tabLinks.forEach(link => {
+      const key = link.dataset.section;
+      if (available.includes(key)) {
+        link.classList.remove('unavailable');
+      } else {
+        link.classList.add('unavailable');
+      }
+    });
+
+    // Load all section content
     SECTIONS.forEach(s => {
       const el = document.getElementById(`content-${s.key}`);
       if (available.includes(s.key)) {
         el.innerHTML = '<div class="loading">Loading</div>';
-        fetchMarkdown(s.path(date), el);
+        if (s.key === 'iran') {
+          loadIranContent(date, el);
+        } else {
+          fetchMarkdown(s.path(date), el);
+        }
       } else {
         el.innerHTML = '<div class="empty">No report available for this date</div>';
       }
     });
+
+    // Determine which tab to show
+    const target = preferredSection && available.includes(preferredSection)
+      ? preferredSection
+      : findMostRecentSection(date, available);
+    switchSection(target || available[0] || 'github');
+  }
+
+  function findMostRecentSection(date, available) {
+    // For the latest date, pick the section that was most recently updated
+    // Simple heuristic: iran updates every 8h so likely most recent, otherwise use order
+    const priority = ['iran', 'ai', 'crypto', 'github'];
+    for (const key of priority) {
+      if (available.includes(key)) return key;
+    }
+    return available[0];
+  }
+
+  function loadIranContent(date, el) {
+    const files = (datesData.iran_files && datesData.iran_files[date]) || [];
+    if (files.length === 0) {
+      el.innerHTML = '<div class="empty">No report available for this date</div>';
+      return;
+    }
+    // Load the latest file (first in sorted-descending list)
+    fetchMarkdown(`iran_daily/${files[0]}`, el);
+  }
+
+  function switchSection(key) {
+    activeSection = key;
+    document.querySelectorAll('.section').forEach(s => s.classList.remove('active'));
+    const target = document.getElementById(`section-${key}`);
+    if (target) {
+      target.classList.add('active');
+      // Re-trigger animation
+      target.style.animation = 'none';
+      target.offsetHeight; // force reflow
+      target.style.animation = '';
+    }
+    tabLinks.forEach(link => {
+      link.classList.toggle('active', link.dataset.section === key);
+    });
+    updateHash();
   }
 
   async function fetchMarkdown(path, el) {
@@ -529,38 +621,6 @@ body {
     if (newIdx >= 0 && newIdx < datesData.dates.length) {
       loadDate(datesData.dates[newIdx]);
     }
-  }
-
-  function initScrollSpy() {
-    const sections = document.querySelectorAll('.section');
-    const navLinks = document.querySelectorAll('.section-tabs a');
-
-    const observer = new IntersectionObserver(entries => {
-      entries.forEach(entry => {
-        if (entry.isIntersecting) {
-          const id = entry.target.id;
-          const key = id.replace('section-', '');
-          navLinks.forEach(link => {
-            link.classList.toggle('active', link.dataset.section === key);
-          });
-        }
-      });
-    }, { rootMargin: '-20% 0px -60% 0px' });
-
-    sections.forEach(s => observer.observe(s));
-
-    navLinks.forEach(link => {
-      link.addEventListener('click', e => {
-        e.preventDefault();
-        const target = document.getElementById(link.getAttribute('href').slice(1));
-        if (target) {
-          const offset = document.querySelector('.topbar').offsetHeight +
-                         document.querySelector('.section-tabs').offsetHeight + 10;
-          const top = target.getBoundingClientRect().top + window.scrollY - offset;
-          window.scrollTo({ top, behavior: 'smooth' });
-        }
-      });
-    });
   }
 
   init();
