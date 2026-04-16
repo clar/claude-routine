@@ -437,7 +437,7 @@ body {
 
   async function init() {
     try {
-      const resp = await fetch('dates.json');
+      const resp = await fetch('dates.json?t=' + Date.now());
       datesData = await resp.json();
     } catch {
       dateDisplay.textContent = 'Error';
@@ -591,7 +591,7 @@ body {
 
   async function fetchMarkdown(path, el) {
     try {
-      const resp = await fetch(path);
+      const resp = await fetch(path + '?t=' + Date.now());
       if (!resp.ok) throw new Error(resp.status);
       const md = await resp.text();
       el.innerHTML = marked.parse(md);
