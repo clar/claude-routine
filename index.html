@@ -7,6 +7,8 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=Source+Han+Sans+SC:wght@400;500;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-328Q3R0EC2"></script>
+<script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-328Q3R0EC2');</script>
 <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
 <style>
 :root {
@@ -52,28 +54,13 @@ body {
 }
 
 .masthead {
-  display: flex;
-  align-items: baseline;
-  gap: 6px;
-  text-decoration: none;
-  color: var(--ink);
-  white-space: nowrap;
-}
-
-.masthead-daily {
-  font-family: var(--font-body);
-  font-size: 11px;
-  font-weight: 500;
-  letter-spacing: 2.5px;
-  text-transform: uppercase;
-  color: var(--ink-muted);
-}
-
-.masthead-name {
   font-family: var(--font-display);
-  font-size: 24px;
   font-weight: 900;
+  font-size: 22px;
   letter-spacing: -0.5px;
+  color: var(--ink);
+  text-decoration: none;
+  white-space: nowrap;
 }
 
 .date-controls {
@@ -416,7 +403,7 @@ body {
 <body>
 
 <header class="topbar">
-  <a class="masthead" href="#" id="masthead-link"><span class="masthead-daily">DAILY</span><span class="masthead-name">10 NEWS</span></a>
+  <a class="masthead" href="#" id="masthead-link">10 NEWS</a>
   <div class="date-controls">
     <button id="prev-btn" title="前一天">&#8592;</button>
     <span class="date-label" id="date-display"></span>
