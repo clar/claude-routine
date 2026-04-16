@@ -3,265 +3,427 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Daily News Hub</title>
+<title>Daily Briefing</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=Source+Han+Sans+SC:wght@400;500;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
 <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
 <style>
-* { margin: 0; padding: 0; box-sizing: border-box; }
-
-body {
-  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
-  background: #f8f9fa;
-  color: #333;
-  line-height: 1.6;
+:root {
+  --ink: #1a1a1a;
+  --ink-secondary: #4a4a4a;
+  --ink-muted: #8a8a8a;
+  --paper: #faf8f5;
+  --paper-card: #ffffff;
+  --accent-github: #c9463d;
+  --accent-ai: #2d6a9f;
+  --accent-crypto: #b8860b;
+  --rule: #d4cfc8;
+  --rule-light: #e8e4de;
+  --font-display: 'Playfair Display', 'Georgia', serif;
+  --font-body: 'Source Han Sans SC', 'Noto Sans SC', -apple-system, sans-serif;
+  --font-mono: 'JetBrains Mono', 'Menlo', monospace;
 }
 
-/* 顶部日期栏 */
-.date-bar {
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+html { scroll-behavior: smooth; }
+
+body {
+  font-family: var(--font-body);
+  background: var(--paper);
+  color: var(--ink);
+  line-height: 1.75;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* ─── 顶栏 ─── */
+.topbar {
   position: sticky;
   top: 0;
   z-index: 100;
-  background: #fff;
-  border-bottom: 1px solid #e1e4e8;
-  padding: 12px 20px;
+  background: var(--paper);
+  border-bottom: 2px solid var(--ink);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 clamp(20px, 4vw, 60px);
+  height: 56px;
+}
+
+.masthead {
+  font-family: var(--font-display);
+  font-weight: 900;
+  font-size: 22px;
+  letter-spacing: -0.5px;
+  color: var(--ink);
+  white-space: nowrap;
+}
+
+.date-controls {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.date-controls button {
+  background: none;
+  border: 1px solid var(--rule);
+  width: 32px;
+  height: 32px;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 14px;
+  color: var(--ink-secondary);
   display: flex;
   align-items: center;
   justify-content: center;
-  gap: 16px;
-  box-shadow: 0 1px 3px rgba(0,0,0,0.06);
-}
-
-.date-bar button {
-  background: none;
-  border: 1px solid #d1d5da;
-  border-radius: 6px;
-  padding: 6px 14px;
-  cursor: pointer;
-  font-size: 16px;
-  color: #333;
-  transition: background 0.15s;
-}
-
-.date-bar button:hover { background: #f0f0f0; }
-.date-bar button:disabled { opacity: 0.3; cursor: not-allowed; }
-
-.date-display {
-  font-size: 20px;
-  font-weight: 600;
-  min-width: 160px;
-  text-align: center;
-}
-
-.date-bar input[type="date"] {
-  border: 1px solid #d1d5da;
-  border-radius: 6px;
-  padding: 5px 10px;
-  font-size: 14px;
-  cursor: pointer;
-  color: #555;
-}
-
-/* 右侧悬浮导航 */
-.side-nav {
-  position: fixed;
-  right: 20px;
-  top: 50%;
-  transform: translateY(-50%);
-  z-index: 90;
-  display: flex;
-  flex-direction: column;
-  gap: 8px;
-}
-
-.side-nav a {
-  display: block;
-  padding: 10px 14px;
-  background: #fff;
-  border: 1px solid #e1e4e8;
-  border-radius: 8px;
-  text-decoration: none;
-  color: #555;
-  font-size: 13px;
-  font-weight: 500;
-  text-align: center;
   transition: all 0.15s;
-  box-shadow: 0 1px 3px rgba(0,0,0,0.06);
 }
 
-.side-nav a:hover { background: #f0f0f0; color: #333; }
-.side-nav a.active { background: #0969da; color: #fff; border-color: #0969da; }
+.date-controls button:hover { border-color: var(--ink); color: var(--ink); }
+.date-controls button:disabled { opacity: 0.25; cursor: not-allowed; }
 
-/* 主内容区 */
+.date-label {
+  font-family: var(--font-mono);
+  font-size: 14px;
+  font-weight: 500;
+  color: var(--ink-secondary);
+  padding: 0 8px;
+  min-width: 100px;
+  text-align: center;
+}
+
+.date-controls input[type="date"] {
+  font-family: var(--font-mono);
+  font-size: 13px;
+  border: 1px solid var(--rule);
+  border-radius: 4px;
+  padding: 4px 8px;
+  background: transparent;
+  color: var(--ink-secondary);
+  cursor: pointer;
+  height: 32px;
+}
+
+/* ─── 板块导航条 ─── */
+.section-tabs {
+  border-bottom: 1px solid var(--rule);
+  background: var(--paper);
+  display: flex;
+  justify-content: center;
+  gap: 0;
+  position: sticky;
+  top: 56px;
+  z-index: 99;
+}
+
+.section-tabs a {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 14px 32px;
+  text-decoration: none;
+  font-size: 14px;
+  font-weight: 500;
+  color: var(--ink-muted);
+  border-bottom: 2px solid transparent;
+  margin-bottom: -1px;
+  transition: all 0.2s;
+  letter-spacing: 0.5px;
+  text-transform: uppercase;
+}
+
+.section-tabs a:hover { color: var(--ink); }
+
+.section-tabs a.active[data-section="github"] { color: var(--accent-github); border-bottom-color: var(--accent-github); }
+.section-tabs a.active[data-section="ai"] { color: var(--accent-ai); border-bottom-color: var(--accent-ai); }
+.section-tabs a.active[data-section="crypto"] { color: var(--accent-crypto); border-bottom-color: var(--accent-crypto); }
+
+.tab-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  flex-shrink: 0;
+}
+[data-section="github"] .tab-dot { background: var(--accent-github); }
+[data-section="ai"] .tab-dot { background: var(--accent-ai); }
+[data-section="crypto"] .tab-dot { background: var(--accent-crypto); }
+
+/* ─── 主内容 ─── */
 .container {
-  max-width: 900px;
+  max-width: 1100px;
   margin: 0 auto;
-  padding: 24px 20px 60px;
+  padding: 0 clamp(16px, 4vw, 60px) 80px;
 }
 
 .section {
-  background: #fff;
-  border: 1px solid #e1e4e8;
-  border-radius: 10px;
+  padding-top: 48px;
   margin-bottom: 24px;
-  overflow: hidden;
+  animation: fadeUp 0.4s ease-out both;
 }
 
-.section-header {
-  padding: 16px 24px;
-  font-size: 18px;
-  font-weight: 700;
-  border-bottom: 1px solid #e1e4e8;
-  display: flex;
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(12px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.section:nth-child(2) { animation-delay: 0.08s; }
+.section:nth-child(3) { animation-delay: 0.16s; }
+
+.section-label {
+  display: inline-flex;
   align-items: center;
   gap: 10px;
+  margin-bottom: 20px;
 }
 
-.section-header .icon { font-size: 22px; }
+.section-label .color-bar {
+  width: 4px;
+  height: 28px;
+  border-radius: 2px;
+}
+
+#section-github .color-bar { background: var(--accent-github); }
+#section-ai .color-bar { background: var(--accent-ai); }
+#section-crypto .color-bar { background: var(--accent-crypto); }
+
+.section-label span {
+  font-family: var(--font-display);
+  font-size: 26px;
+  font-weight: 700;
+  letter-spacing: -0.3px;
+}
 
 .section-body {
-  padding: 24px;
+  background: var(--paper-card);
+  border: 1px solid var(--rule-light);
+  border-radius: 6px;
+  padding: clamp(20px, 3vw, 40px);
+  box-shadow: 0 1px 3px rgba(0,0,0,0.04);
 }
 
 .section-body .empty {
-  color: #999;
-  font-style: italic;
+  color: var(--ink-muted);
   text-align: center;
-  padding: 40px 0;
+  padding: 60px 0;
+  font-size: 15px;
 }
 
 .loading {
   text-align: center;
-  padding: 40px 0;
-  color: #999;
+  padding: 60px 0;
+  color: var(--ink-muted);
+  font-size: 14px;
 }
 
-/* Markdown 渲染样式 */
-.section-body h1 { font-size: 1.5em; margin: 0.8em 0 0.4em; border-bottom: 1px solid #eee; padding-bottom: 0.3em; }
-.section-body h2 { font-size: 1.3em; margin: 1em 0 0.4em; }
-.section-body h3 { font-size: 1.1em; margin: 0.8em 0 0.3em; }
-.section-body p { margin: 0.6em 0; }
-.section-body a { color: #0969da; text-decoration: none; }
-.section-body a:hover { text-decoration: underline; }
-.section-body ul, .section-body ol { padding-left: 1.5em; margin: 0.5em 0; }
-.section-body li { margin: 0.3em 0; }
-.section-body blockquote {
-  border-left: 3px solid #d1d5da;
-  padding: 4px 16px;
-  margin: 0.6em 0;
-  color: #666;
-  background: #f8f9fa;
-  border-radius: 0 4px 4px 0;
+.loading::after {
+  content: '';
+  display: inline-block;
+  width: 16px;
+  height: 16px;
+  border: 2px solid var(--rule);
+  border-top-color: var(--ink-muted);
+  border-radius: 50%;
+  animation: spin 0.8s linear infinite;
+  margin-left: 8px;
+  vertical-align: middle;
 }
-.section-body hr { border: none; border-top: 1px solid #e1e4e8; margin: 1.2em 0; }
+
+@keyframes spin { to { transform: rotate(360deg); } }
+
+/* ─── Markdown 渲染 ─── */
+.section-body h1 {
+  font-family: var(--font-display);
+  font-size: 1.6em;
+  font-weight: 700;
+  margin: 0 0 0.5em;
+  padding-bottom: 0.4em;
+  border-bottom: 2px solid var(--ink);
+  letter-spacing: -0.3px;
+}
+
+.section-body h2 {
+  font-size: 1.2em;
+  font-weight: 700;
+  margin: 1.6em 0 0.5em;
+  padding-bottom: 0.3em;
+  border-bottom: 1px solid var(--rule-light);
+}
+
+.section-body h3 {
+  font-size: 1.05em;
+  font-weight: 700;
+  margin: 1.2em 0 0.3em;
+  color: var(--ink);
+}
+
+.section-body p {
+  margin: 0.7em 0;
+  color: var(--ink-secondary);
+}
+
+.section-body a {
+  color: var(--accent-ai);
+  text-decoration: none;
+  border-bottom: 1px solid transparent;
+  transition: border-color 0.15s;
+}
+
+.section-body a:hover { border-bottom-color: var(--accent-ai); }
+
+.section-body ul, .section-body ol { padding-left: 1.4em; margin: 0.5em 0; }
+.section-body li { margin: 0.35em 0; color: var(--ink-secondary); }
+.section-body li strong { color: var(--ink); }
+
+.section-body blockquote {
+  border-left: 3px solid var(--accent-ai);
+  padding: 8px 20px;
+  margin: 1em 0;
+  color: var(--ink-secondary);
+  background: rgba(45,106,159,0.04);
+  border-radius: 0 4px 4px 0;
+  font-size: 0.95em;
+}
+
+.section-body hr {
+  border: none;
+  border-top: 1px solid var(--rule-light);
+  margin: 2em 0;
+}
+
 .section-body code {
-  background: #f0f2f5;
+  font-family: var(--font-mono);
+  background: #f0ede8;
   padding: 2px 6px;
   border-radius: 3px;
-  font-size: 0.9em;
+  font-size: 0.88em;
 }
+
 .section-body pre {
-  background: #f6f8fa;
-  padding: 12px 16px;
+  background: #2b2b2b;
+  color: #e0ddd8;
+  padding: 16px 20px;
   border-radius: 6px;
   overflow-x: auto;
-  margin: 0.6em 0;
+  margin: 1em 0;
+  font-size: 0.88em;
 }
-.section-body pre code { background: none; padding: 0; }
-.section-body strong { font-weight: 600; }
 
-/* 表格样式 */
+.section-body pre code {
+  background: none;
+  padding: 0;
+  color: inherit;
+}
+
+.section-body strong { font-weight: 700; color: var(--ink); }
+
+/* ─── 表格 ─── */
 .section-body table {
   width: 100%;
   border-collapse: collapse;
-  margin: 0.8em 0;
-  font-size: 0.92em;
+  margin: 1em 0;
+  font-size: 0.9em;
 }
-.section-body th, .section-body td {
-  border: 1px solid #e1e4e8;
-  padding: 8px 12px;
-  text-align: left;
-}
+
 .section-body th {
-  background: #f6f8fa;
-  font-weight: 600;
-}
-.section-body tr:nth-child(even) { background: #fafbfc; }
-.section-body tr:hover { background: #f0f4f8; }
-
-/* 响应式 */
-@media (max-width: 768px) {
-  .side-nav { display: none; }
-  .container { padding: 16px 12px 40px; }
-  .section-body { padding: 16px; }
-  .date-display { font-size: 16px; min-width: auto; }
-  .section-body table { font-size: 0.82em; }
-  .section-body th, .section-body td { padding: 6px 8px; }
+  text-align: left;
+  font-weight: 700;
+  font-size: 0.8em;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  color: var(--ink-muted);
+  padding: 10px 14px;
+  border-bottom: 2px solid var(--ink);
+  background: transparent;
 }
 
-/* 底部移动端导航（替代右侧导航） */
-.bottom-nav {
-  display: none;
-  position: fixed;
-  bottom: 0;
-  left: 0;
-  right: 0;
-  background: #fff;
-  border-top: 1px solid #e1e4e8;
-  z-index: 90;
-  justify-content: space-around;
-  padding: 8px 0;
+.section-body td {
+  padding: 10px 14px;
+  border-bottom: 1px solid var(--rule-light);
+  color: var(--ink-secondary);
+  vertical-align: top;
 }
 
-.bottom-nav a {
-  text-decoration: none;
-  color: #555;
+.section-body tr:hover td { background: rgba(0,0,0,0.015); }
+
+.section-body td a { font-weight: 500; }
+
+/* ─── 页脚分隔线 ─── */
+.footer-rule {
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 0 clamp(16px, 4vw, 60px);
+}
+
+.footer-rule hr {
+  border: none;
+  border-top: 2px solid var(--ink);
+  margin-bottom: 20px;
+}
+
+.footer-info {
+  max-width: 1100px;
+  margin: 0 auto 40px;
+  padding: 0 clamp(16px, 4vw, 60px);
   font-size: 12px;
-  font-weight: 500;
-  text-align: center;
-  padding: 4px 8px;
+  color: var(--ink-muted);
+  font-family: var(--font-mono);
 }
-.bottom-nav a.active { color: #0969da; }
 
+/* ─── 响应式 ─── */
 @media (max-width: 768px) {
-  .bottom-nav { display: flex; }
-  .container { padding-bottom: 80px; }
+  .masthead { font-size: 17px; }
+  .section-tabs a { padding: 12px 16px; font-size: 12px; }
+  .section-body { padding: 16px; }
+  .section-label span { font-size: 20px; }
+  .section-body table { font-size: 0.82em; }
+  .section-body th, .section-body td { padding: 8px 10px; }
+  .section { padding-top: 32px; }
+  .date-label { display: none; }
+}
+
+@media (max-width: 480px) {
+  .section-tabs a { padding: 10px 12px; font-size: 11px; gap: 5px; }
+  .tab-dot { width: 6px; height: 6px; }
 }
 </style>
 </head>
 <body>
 
-<div class="date-bar">
-  <button id="prev-btn" title="前一天">←</button>
-  <span class="date-display" id="date-display">加载中...</span>
-  <button id="next-btn" title="后一天">→</button>
-  <input type="date" id="date-picker" title="选择日期">
-</div>
+<header class="topbar">
+  <div class="masthead">Daily Briefing</div>
+  <div class="date-controls">
+    <button id="prev-btn" title="前一天">&#8592;</button>
+    <span class="date-label" id="date-display"></span>
+    <button id="next-btn" title="后一天">&#8594;</button>
+    <input type="date" id="date-picker" title="选择日期">
+  </div>
+</header>
 
-<nav class="side-nav" id="side-nav">
-  <a href="#section-github" data-section="github">GitHub</a>
-  <a href="#section-ai" data-section="ai">AI</a>
-  <a href="#section-crypto" data-section="crypto">Crypto</a>
+<nav class="section-tabs" id="section-tabs">
+  <a href="#section-github" data-section="github"><span class="tab-dot"></span>GitHub</a>
+  <a href="#section-ai" data-section="ai"><span class="tab-dot"></span>AI</a>
+  <a href="#section-crypto" data-section="crypto"><span class="tab-dot"></span>Crypto</a>
 </nav>
 
 <main class="container">
   <div class="section" id="section-github">
-    <div class="section-header"><span class="icon">📊</span> GitHub Trending</div>
-    <div class="section-body" id="content-github"><div class="loading">加载中...</div></div>
+    <div class="section-label"><div class="color-bar"></div><span>GitHub Trending</span></div>
+    <div class="section-body" id="content-github"><div class="loading">Loading</div></div>
   </div>
   <div class="section" id="section-ai">
-    <div class="section-header"><span class="icon">🤖</span> AI 日报</div>
-    <div class="section-body" id="content-ai"><div class="loading">加载中...</div></div>
+    <div class="section-label"><div class="color-bar"></div><span>AI Daily</span></div>
+    <div class="section-body" id="content-ai"><div class="loading">Loading</div></div>
   </div>
   <div class="section" id="section-crypto">
-    <div class="section-header"><span class="icon">💰</span> Crypto 日报</div>
-    <div class="section-body" id="content-crypto"><div class="loading">加载中...</div></div>
+    <div class="section-label"><div class="color-bar"></div><span>Crypto Daily</span></div>
+    <div class="section-body" id="content-crypto"><div class="loading">Loading</div></div>
   </div>
 </main>
 
-<nav class="bottom-nav">
-  <a href="#section-github" data-section="github">📊 GitHub</a>
-  <a href="#section-ai" data-section="ai">🤖 AI</a>
-  <a href="#section-crypto" data-section="crypto">💰 Crypto</a>
-</nav>
+<div class="footer-rule"><hr></div>
+<div class="footer-info">auto-generated daily briefing</div>
 
 <script>
 (function() {
@@ -284,16 +446,15 @@ body {
       const resp = await fetch('dates.json');
       datesData = await resp.json();
     } catch {
-      dateDisplay.textContent = '无法加载数据';
+      dateDisplay.textContent = 'Error';
       return;
     }
 
     if (!datesData.dates || datesData.dates.length === 0) {
-      dateDisplay.textContent = '暂无数据';
+      dateDisplay.textContent = 'No data';
       return;
     }
 
-    // 从 URL hash 读取日期，或使用最新日期
     const hashDate = getHashDate();
     const targetDate = hashDate && datesData.dates.includes(hashDate) ? hashDate : datesData.dates[0];
 
@@ -309,7 +470,6 @@ body {
       if (val && datesData.dates.includes(val)) {
         loadDate(val);
       } else if (val) {
-        // 找到最近的可用日期
         const closest = datesData.dates.reduce((prev, d) =>
           Math.abs(new Date(d) - new Date(val)) < Math.abs(new Date(prev) - new Date(val)) ? d : prev
         );
@@ -344,10 +504,10 @@ body {
     SECTIONS.forEach(s => {
       const el = document.getElementById(`content-${s.key}`);
       if (available.includes(s.key)) {
-        el.innerHTML = '<div class="loading">加载中...</div>';
+        el.innerHTML = '<div class="loading">Loading</div>';
         fetchMarkdown(s.path(date), el);
       } else {
-        el.innerHTML = '<div class="empty">该日期暂无报告</div>';
+        el.innerHTML = '<div class="empty">No report available for this date</div>';
       }
     });
   }
@@ -359,13 +519,13 @@ body {
       const md = await resp.text();
       el.innerHTML = marked.parse(md);
     } catch {
-      el.innerHTML = '<div class="empty">该日期暂无报告</div>';
+      el.innerHTML = '<div class="empty">No report available for this date</div>';
     }
   }
 
   function navigateDate(direction) {
     const idx = datesData.dates.indexOf(currentDate);
-    const newIdx = idx - direction; // dates 是降序，所以 -1 = 前一天(index+1)
+    const newIdx = idx - direction;
     if (newIdx >= 0 && newIdx < datesData.dates.length) {
       loadDate(datesData.dates[newIdx]);
     }
@@ -373,7 +533,7 @@ body {
 
   function initScrollSpy() {
     const sections = document.querySelectorAll('.section');
-    const navLinks = document.querySelectorAll('.side-nav a, .bottom-nav a');
+    const navLinks = document.querySelectorAll('.section-tabs a');
 
     const observer = new IntersectionObserver(entries => {
       entries.forEach(entry => {
@@ -389,12 +549,16 @@ body {
 
     sections.forEach(s => observer.observe(s));
 
-    // 平滑滚动
     navLinks.forEach(link => {
       link.addEventListener('click', e => {
         e.preventDefault();
         const target = document.getElementById(link.getAttribute('href').slice(1));
-        if (target) target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        if (target) {
+          const offset = document.querySelector('.topbar').offsetHeight +
+                         document.querySelector('.section-tabs').offsetHeight + 10;
+          const top = target.getBoundingClientRect().top + window.scrollY - offset;
+          window.scrollTo({ top, behavior: 'smooth' });
+        }
       });
     });
   }
