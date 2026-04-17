@@ -30,15 +30,15 @@
 
 ## Crypto最新日报
 
-**[2026-04-16 · SEC CLARITY Act 圆桌会议召开 · BTC $74,576 MFI创新高 · Morgan Stanley首只银行系ETF · Kraken内部人员泄露](./crypto_daily/2026-04-16/report.md)**
+**[2026-04-17 · BTC $74,390 再测 $75K 受挫 · Goldman Sachs BTC ETF 入局 · Adam Back 量子抗性争辩 · Drift $285M 朝鲜黑客 Tether 救援 · CLARITY Act 四月下旬 Markup](./crypto_daily/2026-04-17/report.md)**
 
-> 今日焦点：**SEC CLARITY Act 通过概率升至72% · BTC MFI-14=79 创恢复周期新高 · Morgan Stanley MSBT 管理费全市场最低0.14% · Bio Protocol暴涨91% · Kraken内部人员泄露约2000账户**
+> 今日焦点：**MSBT 突破 $1亿 Goldman 申报 Bitcoin Premium Income ETF · BTC 资金费率触 2023 最负 · Adam Back vs BIP-361 量子冻结之争 · Drift $285M DPRK 黑客 Tether $147.5M 救援 · CLARITY Act 稳定币收益妥协四月下旬闯关**
 >
-> - SEC 主持 CLARITY Act 圆桌会议，讨论数字资产商品/证券分类框架，参议院 markup 预计4月底；Polymarket 赔率升至 72%
-> - BTC 现价 $74,576（MFI-14=79 创恢复新高），ETH $2,352.92；全市场总市值 $2.6 万亿，恐惧贪婪指数 23（极度恐惧）
-> - Morgan Stanley MSBT 成美国首只银行系 Spot BTC ETF（4月8日上市），管理费 0.14% 全市场最低；首日成交 $3,400 万
-> - Rakuten 为 4,400 万用户集成 XRP 支付；PARITY Act 拟推稳定币小额消费免税；Bio Protocol 单日暴涨 91%
-> - Kraken 遭内部人员招募泄露事件：约 2,000 账户基础数据外泄，犯罪团伙以录像勒索，Kraken 拒绝支付并联合执法追查
+> - Morgan Stanley MSBT 上线 8 天 AUM 破 $1亿（费率 0.14% 全市最低），Goldman Sachs 紧随申报备兑看涨策略 BTC ETF，华尔街 ETF 价格战升温
+> - BTC 约 $74,390，$75K–$76K 强阻力，资金费率触 2023 年以来最负水平，空头仓位高度积累；BTC 主导率 58.5%，Fear & Greed = 23
+> - 巴黎区块链周：Adam Back（Blockstream CEO）力主可选量子抗性升级，Jameson Lopp BIP-361 提议五年窗口后强制冻结含 Satoshi 地址，治理哲学深层冲突浮出水面
+> - Drift Protocol $285M 朝鲜黑客（6 个月 APT 渗透 + Solana Durable Nonces 利用），Tether $147.5M 救援并替换 Circle USDC 为 USDT 结算层
+> - GENIUS Act 实施细则（FinCEN-OFAC 联合规则、FDIC 框架）快速推进，7月18日大限临近；CLARITY Act 稳定币收益妥协方案已定，Senate Banking markup 四月下旬
 
 ---
 
@@ -46,6 +46,6 @@
 
 | 日期 | 今日焦点 | 链接 |
 |------|---------|------|
-| 2026-04-17 | Claude Opus 4.7发布 · Project Glasswing锁定Mythos · Meta Muse Spark入局 · 人形机器人进家庭 | [AI日报](./ai_daily/2026-04-17/report.md) · [GitHub热榜](./github_daily/2026-04-17/trending.md) |
+| 2026-04-17 | Claude Opus 4.7发布 · MSBT破$1亿 Goldman入局 · Adam Back量子争辩 · Drift $285M朝鲜黑客 · CLARITY Act四月下旬闯关 | [Crypto日报](./crypto_daily/2026-04-17/report.md) · [AI日报](./ai_daily/2026-04-17/report.md) · [GitHub热榜](./github_daily/2026-04-17/trending.md) |
 | 2026-04-16 | SEC CLARITY Act 圆桌会议 · BTC $74,576 MFI新高 · Morgan Stanley MSBT · Kraken内部泄露 | [Crypto日报](./crypto_daily/2026-04-16/report.md) · [AI日报](./ai_daily/2026-04-16/report.md) · [GitHub热榜](./github_daily/2026-04-16/trending.md) |
 | 2026-04-15 | AI Agent 爆发期 · Claude 生态霸榜 · 金融 AI 双层突破 | [查看报告](./github_daily/2026-04-15/trending.md) |
