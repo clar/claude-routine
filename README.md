@@ -2,15 +2,15 @@
 
 ## github最新日报
 
-**[2026-04-16 · Claude 生态闭环成型 · Agent 工具链爆发](./github_daily/2026-04-16/trending.md)**
+**[2026-04-17 · Claude 生态三层闭环 · 自进化 Agent 双雄并起 · Vercel 官方入场](./github_daily/2026-04-17/trending.md)**
 
-> 今日焦点：**Claude Code 工具链四层齐备 · 自进化 Agent 新思路 · Vercel 入局 Agent**
+> 今日焦点：**karpathy-skills +7,959⭐ 蝉联榜首 · 自进化 Agent 两项目同日进前十 · Vercel open-agents 官方入场**
 >
-> - `forrestchang/andrej-karpathy-skills` 再度登顶 +9,646⭐——Karpathy 经验提炼的单文件 CLAUDE.md，"AI 可读工程规范"成为新基础设施
-> - `thedotmack/claude-mem` +2,305⭐——用 AI 压缩会话历史、跨会话注入上下文，解决 Claude Code 记忆缺失痛点
-> - `obra/superpowers` 154K 总星再冲 +2,055⭐，开发者从尝鲜转入 Agent 框架选型落地阶段
-> - `lsdefine/GenericAgent` 自进化 Agent 从 3.3K 行代码生长技能树，token 消耗降低 6 倍
-> - Vercel 官方 `open-agents` 模板单日 +915⭐，巨头入局拉低 Agent 开发门槛
+> - `forrestchang/andrej-karpathy-skills` 单日 +7,959⭐ 蝉联第一（累计 49,735⭐）——"AI 可读工程规范"成为项目标配基础设施
+> - `thedotmack/claude-mem` 全榜总星之首（59,672⭐）+1,897⭐，跨会话记忆已成 Claude Code 事实标准插件
+> - `lsdefine/GenericAgent` +872⭐ 与 `EvoMap/evolver` +812⭐ 同日上榜，自进化 Agent 从概念走向实验落地
+> - `vercel-labs/open-agents` +738⭐，大厂官方下场，Agent 开发模板走向标准化
+> - `google/magika` +854⭐，AI 驱动文件类型检测，Google 用 AI 重建基础设施层
 
 ---
 
@@ -46,5 +46,6 @@
 
 | 日期 | 今日焦点 | 链接 |
 |------|---------|------|
+| 2026-04-17 | karpathy-skills 蝉联榜首 · 自进化 Agent 双雄并起 · Vercel 官方入场 Agent | [GitHub热榜](./github_daily/2026-04-17/trending.md) |
 | 2026-04-16 | SEC CLARITY Act 圆桌会议 · BTC $74,576 MFI新高 · Morgan Stanley MSBT · Kraken内部泄露 | [Crypto日报](./crypto_daily/2026-04-16/report.md) · [AI日报](./ai_daily/2026-04-16/report.md) · [GitHub热榜](./github_daily/2026-04-16/trending.md) |
 | 2026-04-15 | AI Agent 爆发期 · Claude 生态霸榜 · 金融 AI 双层突破 | [查看报告](./github_daily/2026-04-15/trending.md) |
