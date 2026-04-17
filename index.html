@@ -339,6 +339,14 @@ body {
 .section-body tr:hover td { background: rgba(0,0,0,0.02); }
 .section-body td a { font-weight: 500; }
 
+/* 短内容列不换行 */
+.section-body td:nth-child(1),
+.section-body th:nth-child(1) { white-space: nowrap; }
+.section-body td:nth-child(3),
+.section-body th:nth-child(3) { white-space: nowrap; }
+.section-body td:nth-child(4):not(:last-child),
+.section-body th:nth-child(4):not(:last-child) { white-space: nowrap; }
+
 /* ─── 页脚 ─── */
 .footer-rule {
   max-width: 1000px;
