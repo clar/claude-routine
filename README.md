@@ -5,7 +5,6 @@
 **[2026-04-16 · Claude 生态闭环成型 · Agent 工具链爆发](./github_daily/2026-04-16/trending.md)**
 
 > 今日焦点：**Claude Code 工具链四层齐备 · 自进化 Agent 新思路 · Vercel 入局 Agent**
->
 > - `forrestchang/andrej-karpathy-skills` 再度登顶 +9,646⭐——Karpathy 经验提炼的单文件 CLAUDE.md，"AI 可读工程规范"成为新基础设施
 > - `thedotmack/claude-mem` +2,305⭐——用 AI 压缩会话历史、跨会话注入上下文，解决 Claude Code 记忆缺失痛点
 > - `obra/superpowers` 154K 总星再冲 +2,055⭐，开发者从尝鲜转入 Agent 框架选型落地阶段
