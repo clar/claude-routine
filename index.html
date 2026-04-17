@@ -339,13 +339,6 @@ body {
 .section-body tr:hover td { background: rgba(0,0,0,0.02); }
 .section-body td a { font-weight: 500; }
 
-/* 短内容列不换行 */
-.section-body td:nth-child(1),
-.section-body th:nth-child(1) { white-space: nowrap; }
-.section-body td:nth-child(3),
-.section-body th:nth-child(3) { white-space: nowrap; }
-.section-body td:nth-child(4):not(:last-child),
-.section-body th:nth-child(4):not(:last-child) { white-space: nowrap; }
 
 /* ─── 页脚 ─── */
 .footer-rule {
@@ -603,6 +596,25 @@ body {
       if (!resp.ok) throw new Error(resp.status);
       const md = await resp.text();
       el.innerHTML = marked.parse(md);
+      // Auto-nowrap short-content columns
+      el.querySelectorAll('table').forEach(table => {
+        const rows = table.querySelectorAll('tbody tr');
+        if (rows.length === 0) return;
+        const colCount = rows[0].children.length;
+        for (let c = 0; c < colCount; c++) {
+          const maxLen = Array.from(rows).reduce((max, row) => {
+            const cell = row.children[c];
+            return cell ? Math.max(max, cell.textContent.trim().length) : max;
+          }, 0);
+          if (maxLen <= 6) {
+            Array.from(rows).forEach(row => {
+              if (row.children[c]) row.children[c].style.whiteSpace = 'nowrap';
+            });
+            const th = table.querySelector(`thead th:nth-child(${c + 1})`);
+            if (th) th.style.whiteSpace = 'nowrap';
+          }
+        }
+      });
     } catch {
       el.innerHTML = '<div class="empty">No report available for this date</div>';
     }
