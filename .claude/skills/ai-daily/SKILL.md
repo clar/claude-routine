@@ -41,7 +41,13 @@ Aggregate from multiple sources to get the fullest picture:
 ```markdown
 # AI 每日热点日报 · {YYYY-MM-DD}
 
-> 今日焦点：**{3-5 defining stories/themes, separated by ·}**
+## 今日焦点
+
+> **{3-5 defining themes separated by ·}**
+>
+> - **{headline}** {one-line takeaway with key number or angle}
+> - **{headline}** {...}
+> - (3-5 bullet points total)
 
 ---
 

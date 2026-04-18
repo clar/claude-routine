@@ -37,7 +37,13 @@ Generate a markdown file with this structure:
 ```markdown
 # Polymarket 每日预测市场分析 · {YYYY-MM-DD}
 
-> 今日焦点：**{3-5 个今日最值得关注的市场关键词，用 · 分隔}**
+## 今日焦点
+
+> **{3-5 个今日最值得关注的市场主题，用 · 分隔}**
+>
+> - **{市场}** {一行要点，附 YES 概率 / 24h 交易量}
+> - **{市场}** {...}
+> - (3-5 bullet points total)
 
 ---
 
@@ -49,7 +55,7 @@ Generate a markdown file with this structure:
 
 ---
 
-## 今日焦点
+## 重点点评
 
 Pick 3-5 most interesting/impactful markets and provide analysis:
 - What is being predicted and why it matters

@@ -36,7 +36,13 @@ Cover stories across these categories (not all every day):
 ```markdown
 # Crypto 每日热门新闻 · {YYYY-MM-DD}
 
-> 今日焦点：**{3-5 defining headlines separated by ·}**
+## 今日焦点
+
+> **{3-5 defining themes separated by ·}**
+>
+> - **{headline}** {one-line takeaway with price / flow / volume number}
+> - **{headline}** {...}
+> - (3-5 bullet points total)
 
 ---
 
