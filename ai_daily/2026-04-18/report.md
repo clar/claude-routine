@@ -1,6 +1,12 @@
-# AI 每日热点日报 · 2026-04-18
+## 今日焦点
 
-> 今日焦点：**Anthropic Claude Mythos 5 触发 ASL-4 安全协议 · 斯坦福 AI 指数 2026 美中差距消弭 · Meta 转向闭源推出 Muse Spark · Q1 全球 AI 融资创纪录 2970 亿美元 · OpenAI/Anthropic/Google 联手反蒸馏**
+> **Claude Mythos 5 触发 ASL-4 · 斯坦福 AI 指数 2026 · Meta 转向闭源 · Q1 AI 融资 $2420 亿 · 三巨头联手反蒸馏**
+>
+> - **Claude Mythos 5 触发 ASL-4** — 首款 10 万亿参数模型因安全协议不对外发布，仅白宫授权美国政府机构访问
+> - **斯坦福 AI 指数 2026** — SWE-bench 一年内从 60% 跃至近 100%，中美模型差距消弭，透明度指数从 58 骤降至 40
+> - **OpenAI 完成 $1220 亿融资** — 估值 $8520 亿，ARR 突破 $250 亿；Anthropic ARR 接近 $190 亿
+> - **Meta 推出 Muse Spark** — 首款闭源前沿模型，告别 Llama 开放路线，效率低 Llama 4 Maverick 一个数量级
+> - **Q1 AI 融资创纪录** — 全球 VC 总额 $2970 亿中 AI 独占 81%（$2420 亿），四笔头部交易合计 $1880 亿
 
 ---
 
