@@ -21,6 +21,7 @@
   --accent-ai: #2d6a9f;
   --accent-crypto: #b8860b;
   --accent-iran: #2e7d5f;
+  --accent-stock: #b85c38;
   --accent-polymarket: #7b61ff;
   --rule: #d4cfc8;
   --rule-light: #e8e4de;
@@ -147,6 +148,7 @@ body {
 .section-tabs a.active[data-section="ai"] { color: var(--accent-ai); border-bottom-color: var(--accent-ai); }
 .section-tabs a.active[data-section="crypto"] { color: var(--accent-crypto); border-bottom-color: var(--accent-crypto); }
 .section-tabs a.active[data-section="iran"] { color: var(--accent-iran); border-bottom-color: var(--accent-iran); }
+.section-tabs a.active[data-section="stock"] { color: var(--accent-stock); border-bottom-color: var(--accent-stock); }
 .section-tabs a.active[data-section="polymarket"] { color: var(--accent-polymarket); border-bottom-color: var(--accent-polymarket); }
 
 .tab-dot {
@@ -159,6 +161,7 @@ body {
 [data-section="ai"] .tab-dot { background: var(--accent-ai); }
 [data-section="crypto"] .tab-dot { background: var(--accent-crypto); }
 [data-section="iran"] .tab-dot { background: var(--accent-iran); }
+[data-section="stock"] .tab-dot { background: var(--accent-stock); }
 [data-section="polymarket"] .tab-dot { background: var(--accent-polymarket); }
 
 /* 无数据的 tab 样式 */
@@ -399,6 +402,7 @@ body {
   <a data-section="github"><span class="tab-dot"></span>GitHub</a>
   <a data-section="ai"><span class="tab-dot"></span>AI</a>
   <a data-section="crypto"><span class="tab-dot"></span>Crypto</a>
+  <a data-section="stock"><span class="tab-dot"></span>Stock</a>
   <a data-section="iran"><span class="tab-dot"></span>Iran</a>
   <a data-section="polymarket"><span class="tab-dot"></span>Polymarket</a>
 </nav>
@@ -412,6 +416,9 @@ body {
   </div>
   <div class="section" id="section-crypto">
     <div class="section-body" id="content-crypto"><div class="loading">Loading</div></div>
+  </div>
+  <div class="section" id="section-stock">
+    <div class="section-body" id="content-stock"><div class="loading">Loading</div></div>
   </div>
   <div class="section" id="section-iran">
     <div class="section-body" id="content-iran"><div class="loading">Loading</div></div>
@@ -434,6 +441,7 @@ body {
     { key: 'github', path: d => `github_daily/${d}/trending.md` },
     { key: 'ai',     path: d => `ai_daily/${d}/report.md` },
     { key: 'crypto', path: d => `crypto_daily/${d}/report.md` },
+    { key: 'stock',  path: d => `stock_daily/${d}/report.md` },
     { key: 'iran',   path: null }, // dynamic, uses iran_files from dates.json
     { key: 'polymarket', path: d => `polymarket_daily/${d}/report.md` },
   ];

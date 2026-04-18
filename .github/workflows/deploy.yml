@@ -36,6 +36,7 @@ jobs:
               'github': 'github_daily',
               'ai': 'ai_daily',
               'crypto': 'crypto_daily',
+              'stock': 'stock_daily',
               'polymarket': 'polymarket_daily',
           }
 
