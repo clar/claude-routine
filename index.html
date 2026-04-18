@@ -4,6 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>DAILY 10 NEWS</title>
+<link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect width='100' height='100' fill='%231a1a1a'/%3E%3Ctext x='50' y='74' font-family='Georgia,serif' font-size='62' font-weight='700' fill='%23faf8f5' text-anchor='middle'%3E10%3C/text%3E%3C/svg%3E">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=Source+Han+Sans+SC:wght@400;500;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
@@ -51,9 +52,19 @@ body {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: 0 clamp(20px, 4vw, 48px);
-  height: 52px;
+  padding: 8px clamp(20px, 4vw, 48px);
+  min-height: 52px;
 }
+
+.brand {
+  display: flex;
+  flex-direction: column;
+  gap: 1px;
+  text-decoration: none;
+  white-space: nowrap;
+}
+
+.brand:hover .masthead { opacity: 0.7; }
 
 .masthead {
   font-family: var(--font-display);
@@ -61,11 +72,17 @@ body {
   font-size: 20px;
   letter-spacing: -0.3px;
   color: var(--ink);
-  text-decoration: none;
-  white-space: nowrap;
+  line-height: 1.1;
 }
 
-.masthead:hover { opacity: 0.7; }
+.tagline {
+  font-family: var(--font-mono);
+  font-size: 9.5px;
+  font-weight: 500;
+  letter-spacing: 0.12em;
+  color: var(--ink-muted);
+  text-transform: uppercase;
+}
 
 .date-controls {
   display: flex;
@@ -366,11 +383,30 @@ body {
   font-size: 12px;
   color: var(--ink-muted);
   font-family: var(--font-mono);
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px 10px;
+  align-items: center;
+}
+
+.footer-info .sep { opacity: 0.5; }
+
+.footer-info a {
+  color: var(--ink-muted);
+  text-decoration: none;
+  border-bottom: 1px dotted var(--rule);
+  transition: color 0.15s, border-color 0.15s;
+}
+
+.footer-info a:hover {
+  color: var(--ink);
+  border-bottom-color: var(--ink);
 }
 
 /* ─── 响应式 ─── */
 @media (max-width: 768px) {
   .masthead { font-size: 16px; }
+  .tagline { font-size: 8.5px; letter-spacing: 0.1em; }
   .section-tabs a { padding: 12px 16px; font-size: 12px; }
   .section-body { padding: 16px; }
   .section-label span { font-size: 20px; }
@@ -389,7 +425,10 @@ body {
 <body>
 
 <header class="topbar">
-  <a class="masthead" href="#" id="masthead-link">10 NEWS</a>
+  <a class="brand" href="#" id="masthead-link">
+    <span class="masthead">10 NEWS</span>
+    <span class="tagline">Updated Daily · 05:00 UTC+8</span>
+  </a>
   <div class="date-controls">
     <button id="prev-btn" title="前一天">&#8592;</button>
     <span class="date-label" id="date-display"></span>
@@ -429,7 +468,11 @@ body {
 </main>
 
 <div class="footer-rule"><hr></div>
-<div class="footer-info">10news.xyz — auto-generated daily briefing</div>
+<div class="footer-info">
+  <span>10news.xyz — auto-generated daily briefing</span>
+  <span class="sep">·</span>
+  <a href="https://github.com/clar/claude-routine/issues" target="_blank" rel="noopener">Feedback</a>
+</div>
 
 <script>
 (function() {
