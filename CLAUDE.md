@@ -17,8 +17,28 @@
    - `stock_daily/{YYYY-MM-DD}/report.md`
    - `polymarket_daily/{YYYY-MM-DD}/report.md`
    - `github_daily/{YYYY-MM-DD}/trending.md`
-4. 当任务委派给子 agent 时，父 agent **必须先自己执行上述命令**拿到具体日期字符串，再把该字符串显式写入子 agent 的 prompt；不得让子 agent 自行推断日期。
-5. 仓库中已存在某个日期的目录**不意味着**那就是今天，可能是历史报告——永远以命令输出为准。
+4. 仓库中已存在某个日期的目录**不意味着**那就是今天，可能是历史报告——永远以命令输出为准。
+
+## 执行模式（强制）
+
+生成日报时**默认由主 agent 亲自执行全部 skill**，不使用子 agent，原因：
+
+- 子 agent 不省 token（反而多消耗系统 prompt 和重复加载 skill）
+- 子 agent 容易遇到 stream idle timeout、沙箱写文件受限等问题，失败代价高
+- 只有在明确"独立 + 重 IO + 并行收益大"场景下才考虑子 agent
+
+**推荐流程（顺序执行）：**
+
+1. `TZ='Asia/Shanghai' date +%Y-%m-%d` 拿日期
+2. 逐个运行 5 个 skill（github-trending、ai-daily、crypto-daily、polymarket-analysis、stock-daily），每个完成立刻写文件
+3. 全部完成后一次性 `git add` + `commit` + `push`
+
+**遇到问题时的优化策略（按顺序尝试）：**
+
+- 单个 skill 卡住：跳过它，继续下一个，最后单独补
+- WebSearch 过多撑爆 context：改用更精准的 1-2 次查询，不要穷举
+- 耗时过长：允许部分 skill 使用子 agent 并行（仅限无写文件依赖的），但要在 prompt 里显式传入日期
+- 网络失败：重试该单项，不重跑全部
 
 ## 分支与提交
 
